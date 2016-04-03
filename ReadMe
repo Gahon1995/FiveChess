@@ -1,0 +1,51 @@
+作业要求：提交日期为4月15日
+
+在ChessStrategy.class中写两个启发式函数
+public Point WhiteNextStep(Point[] chessList)和public Point BlackNextStep(Point[] chesslistB)，各自都返回棋盘的x和y索引，即位置坐标。这两个启发式函数可视为两个players，对战，作业只需要修改这两个函数，输入参数chesslist（定义在ChessBoard.java中）是棋盘布局（Point矩阵，有位置信息和颜色信息）。
+
+main()函数在test.java文件中。
+黑子首先落子.
+需要jdk1.7
+
+
+
+
+
+关于五子棋基本类：
+	1，ChessBoard.class:
+		棋盘类，有关实现棋盘基本的界面，检测胜利，绘制方法等
+		 （1）public ChessBoard(){ }
+		 	初始化，设置鼠标监听
+		 （2）public void paintChess(Graphics g)
+		 	鼠标控制下的棋子绘制
+		 （3）public void paintComponent(Graphics g){ }
+		 	棋盘界面绘制
+		 （4）public  Point[] addChess(int x,int y){}
+		 	接收棋子坐标并绘制，返回当前棋盘所有棋子的数据。若胜利，或者走错，返回空值
+		 （5）public void mousePressed(MouseEvent e){}
+		 	鼠标在组件上按下时调用
+		 （6）private boolean isWin(){}
+		 	检测是否赢
+		 （7）private Point getChess(int xIndex,int yIndex,Color color){ }
+		 	 查找棋子
+		  （8）public void goback(){ }
+		  	悔棋一步 
+		  （9） public Dimension getPreferredSize(){  }
+		  	 绘制矩形框
+		  
+	2，Point.class:
+		棋子信息对象，包括
+		  private int x;//棋盘中的x索引  
+		  private int y;//棋盘中的y索引  
+		  private Color color;//颜色  
+		  public static final int DIAMETER=30;//直径  
+	3，ChessStrategy.class:
+		public ChessStrategy(){  }
+			程序界面初始化，按钮事件监听
+		private class MyItemListener implements ActionListener{}
+			按钮事件添加
+		public ChessBoard getChessBoard() {}
+			获取棋盘对象，通过棋盘对象控制棋子的添加
+			
+      4.test.java
+        main函数在这里。不用修改。
