@@ -1,51 +1,51 @@
-×÷ÒµÒªÇó£ºÌá½»ÈÕÆÚÎª4ÔÂ15ÈÕ
-
-ÔÚChessStrategy.classÖĞĞ´Á½¸öÆô·¢Ê½º¯Êı
-public Point WhiteNextStep(Point[] chessList)ºÍpublic Point BlackNextStep(Point[] chesslistB)£¬¸÷×Ô¶¼·µ»ØÆåÅÌµÄxºÍyË÷Òı£¬¼´Î»ÖÃ×ø±ê¡£ÕâÁ½¸öÆô·¢Ê½º¯Êı¿ÉÊÓÎªÁ½¸öplayers£¬¶ÔÕ½£¬×÷ÒµÖ»ĞèÒªĞŞ¸ÄÕâÁ½¸öº¯Êı£¬ÊäÈë²ÎÊıchesslist£¨¶¨ÒåÔÚChessBoard.javaÖĞ£©ÊÇÆåÅÌ²¼¾Ö£¨Point¾ØÕó£¬ÓĞÎ»ÖÃĞÅÏ¢ºÍÑÕÉ«ĞÅÏ¢£©¡£
-
-main()º¯ÊıÔÚtest.javaÎÄ¼şÖĞ¡£
-ºÚ×ÓÊ×ÏÈÂä×Ó.
-ĞèÒªjdk1.7
 
 
+åœ¨ChessStrategy.classä¸­å†™ä¸¤ä¸ªå¯å‘å¼å‡½æ•°
+public Point WhiteNextStep(Point[] chessList)å’Œpublic Point BlackNextStep(Point[] chesslistB)ï¼Œå„è‡ªéƒ½è¿”å›æ£‹ç›˜çš„xå’Œyç´¢å¼•ï¼Œå³ä½ç½®åæ ‡ã€‚è¿™ä¸¤ä¸ªå¯å‘å¼å‡½æ•°å¯è§†ä¸ºä¸¤ä¸ªplayersï¼Œå¯¹æˆ˜ï¼Œä½œä¸šåªéœ€è¦ä¿®æ”¹è¿™ä¸¤ä¸ªå‡½æ•°ï¼Œè¾“å…¥å‚æ•°chesslistï¼ˆå®šä¹‰åœ¨ChessBoard.javaä¸­ï¼‰æ˜¯æ£‹ç›˜å¸ƒå±€ï¼ˆPointçŸ©é˜µï¼Œæœ‰ä½ç½®ä¿¡æ¯å’Œé¢œè‰²ä¿¡æ¯ï¼‰ã€‚
+
+main()å‡½æ•°åœ¨test.javaæ–‡ä»¶ä¸­ã€‚
+é»‘å­é¦–å…ˆè½å­.
+éœ€è¦jdk1.7
 
 
 
-¹ØÓÚÎå×ÓÆå»ù±¾Àà£º
-	1£¬ChessBoard.class:
-		ÆåÅÌÀà£¬ÓĞ¹ØÊµÏÖÆåÅÌ»ù±¾µÄ½çÃæ£¬¼ì²âÊ¤Àû£¬»æÖÆ·½·¨µÈ
-		 £¨1£©public ChessBoard(){ }
-		 	³õÊ¼»¯£¬ÉèÖÃÊó±ê¼àÌı
-		 £¨2£©public void paintChess(Graphics g)
-		 	Êó±ê¿ØÖÆÏÂµÄÆå×Ó»æÖÆ
-		 £¨3£©public void paintComponent(Graphics g){ }
-		 	ÆåÅÌ½çÃæ»æÖÆ
-		 £¨4£©public  Point[] addChess(int x,int y){}
-		 	½ÓÊÕÆå×Ó×ø±ê²¢»æÖÆ£¬·µ»Øµ±Ç°ÆåÅÌËùÓĞÆå×ÓµÄÊı¾İ¡£ÈôÊ¤Àû£¬»òÕß×ß´í£¬·µ»Ø¿ÕÖµ
-		 £¨5£©public void mousePressed(MouseEvent e){}
-		 	Êó±êÔÚ×é¼şÉÏ°´ÏÂÊ±µ÷ÓÃ
-		 £¨6£©private boolean isWin(){}
-		 	¼ì²âÊÇ·ñÓ®
-		 £¨7£©private Point getChess(int xIndex,int yIndex,Color color){ }
-		 	 ²éÕÒÆå×Ó
-		  £¨8£©public void goback(){ }
-		  	»ÚÆåÒ»²½ 
-		  £¨9£© public Dimension getPreferredSize(){  }
-		  	 »æÖÆ¾ØĞÎ¿ò
+
+
+##å…³äºäº”å­æ£‹åŸºæœ¬ç±»ï¼š
+###	1ï¼ŒChessBoard.class:
+		æ£‹ç›˜ç±»ï¼Œæœ‰å…³å®ç°æ£‹ç›˜åŸºæœ¬çš„ç•Œé¢ï¼Œæ£€æµ‹èƒœåˆ©ï¼Œç»˜åˆ¶æ–¹æ³•ç­‰
+		 ï¼ˆ1ï¼‰public ChessBoard(){ }
+		 	åˆå§‹åŒ–ï¼Œè®¾ç½®é¼ æ ‡ç›‘å¬
+		 ï¼ˆ2ï¼‰public void paintChess(Graphics g)
+		 	é¼ æ ‡æ§åˆ¶ä¸‹çš„æ£‹å­ç»˜åˆ¶
+		 ï¼ˆ3ï¼‰public void paintComponent(Graphics g){ }
+		 	æ£‹ç›˜ç•Œé¢ç»˜åˆ¶
+		 ï¼ˆ4ï¼‰public  Point[] addChess(int x,int y){}
+		 	æ¥æ”¶æ£‹å­åæ ‡å¹¶ç»˜åˆ¶ï¼Œè¿”å›å½“å‰æ£‹ç›˜æ‰€æœ‰æ£‹å­çš„æ•°æ®ã€‚è‹¥èƒœåˆ©ï¼Œæˆ–è€…èµ°é”™ï¼Œè¿”å›ç©ºå€¼
+		 ï¼ˆ5ï¼‰public void mousePressed(MouseEvent e){}
+		 	é¼ æ ‡åœ¨ç»„ä»¶ä¸ŠæŒ‰ä¸‹æ—¶è°ƒç”¨
+		 ï¼ˆ6ï¼‰private boolean isWin(){}
+		 	æ£€æµ‹æ˜¯å¦èµ¢
+		 ï¼ˆ7ï¼‰private Point getChess(int xIndex,int yIndex,Color color){ }
+		 	 æŸ¥æ‰¾æ£‹å­
+		  ï¼ˆ8ï¼‰public void goback(){ }
+		  	æ‚”æ£‹ä¸€æ­¥ 
+		  ï¼ˆ9ï¼‰ public Dimension getPreferredSize(){  }
+		  	 ç»˜åˆ¶çŸ©å½¢æ¡†
 		  
-	2£¬Point.class:
-		Æå×ÓĞÅÏ¢¶ÔÏó£¬°üÀ¨
-		  private int x;//ÆåÅÌÖĞµÄxË÷Òı  
-		  private int y;//ÆåÅÌÖĞµÄyË÷Òı  
-		  private Color color;//ÑÕÉ«  
-		  public static final int DIAMETER=30;//Ö±¾¶  
-	3£¬ChessStrategy.class:
-		public ChessStrategy(){  }
-			³ÌĞò½çÃæ³õÊ¼»¯£¬°´Å¥ÊÂ¼ş¼àÌı
+###	2ï¼ŒPoint.class:
+		æ£‹å­ä¿¡æ¯å¯¹è±¡ï¼ŒåŒ…æ‹¬
+		  private int x;//æ£‹ç›˜ä¸­çš„xç´¢å¼•  
+		  private int y;//æ£‹ç›˜ä¸­çš„yç´¢å¼•  
+		  private Color color;//é¢œè‰²  
+		  public static final int DIAMETER=30;//ç›´å¾„  
+	3ï¼ŒChessStrategy.class:
+###		public ChessStrategy(){  }
+			ç¨‹åºç•Œé¢åˆå§‹åŒ–ï¼ŒæŒ‰é’®äº‹ä»¶ç›‘å¬
 		private class MyItemListener implements ActionListener{}
-			°´Å¥ÊÂ¼şÌí¼Ó
+			æŒ‰é’®äº‹ä»¶æ·»åŠ 
 		public ChessBoard getChessBoard() {}
-			»ñÈ¡ÆåÅÌ¶ÔÏó£¬Í¨¹ıÆåÅÌ¶ÔÏó¿ØÖÆÆå×ÓµÄÌí¼Ó
+			è·å–æ£‹ç›˜å¯¹è±¡ï¼Œé€šè¿‡æ£‹ç›˜å¯¹è±¡æ§åˆ¶æ£‹å­çš„æ·»åŠ 
 			
-      4.test.java
-        mainº¯ÊıÔÚÕâÀï¡£²»ÓÃĞŞ¸Ä¡£
+ ###     4.test.java
+        mainå‡½æ•°åœ¨è¿™é‡Œã€‚ä¸ç”¨ä¿®æ”¹ã€‚
