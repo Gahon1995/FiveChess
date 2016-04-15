@@ -6,15 +6,15 @@ import java.awt.Color;
  * 
  * @author Hao
  * 
- *         class for the basechess
+ *         class for the chess point
  */
 
 public class Point {
 
-	private int x;// 棋盘中的x索引
-	private int y;// 棋盘中的y索引
-	private Color color;// 颜色
-	public static final int DIAMETER = 30;// 直径
+	private int x;// 棋子的x坐标
+	private int y;// 棋子的y坐标
+	private Color color;// 棋子颜色
+	public static final int DIAMETER = 30;// 画图棋子直径
 
 	public Point(int x, int y, Color color) {
 		this.x = x;
@@ -22,18 +22,15 @@ public class Point {
 		this.color = color;
 	}
 
-	// 得到棋盘中X的坐标
 	public int getX() {
-		return x;
+		return this.x;
 	}
 
-	// 得到棋盘中的Y的坐标
 	public int getY() {
-		return y;
+		return this.y;
 	}
 
-	// 获得棋子的颜色
 	public Color getColor() {
-		return color;
+		return this.color;
 	}
 }
