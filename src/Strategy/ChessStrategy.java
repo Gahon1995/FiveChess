@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import javax.swing.JFrame;
-
 import BaseChess.ChessBoard;
 import BaseChess.Point;
 
@@ -20,22 +18,13 @@ import BaseChess.Point;
  * @author Hao
  *
  */
-public class ChessStrategy extends JFrame {
+public class ChessStrategy {
 
 	/**
-	 * @param args
-	 */
-
-	/**
-	 * 白棋子的策略
+	 * 白棋子的策略,根据当前棋盘，返回下一个白子下落点
 	 * 
-	 * @param chessList
-	 * @return the next while point
 	 */
 	public Point WhiteNextStep(Point[] chessList) {
-		/**
-		 * 白子策略
-		 */
 
 		ArrayList<ArrayList<Point>> NextPoint = NextCandidatedPoints(chessList);
 		ArrayList<Point> blackList = NextPoint.get(0);
@@ -43,11 +32,6 @@ public class ChessStrategy extends JFrame {
 
 		int blackLongnum = findTheLongestChessNums(blackList.get(0), chessList);
 		int whiteLongnum = findTheLongestChessNums(whiteList.get(0), chessList);
-
-		// System.out.println("Current white " + "blackLongnum :" + blackLongnum
-		// + " whiteLongnum " + whiteLongnum
-		// + " backlist nums " + blackList.size() + " whitelist nums " +
-		// whiteList.size());
 
 		if (whiteLongnum < blackLongnum) {
 			// 白的的连子数比黑子要少，就从黑子的候选结点中选择评价函数最高的结点
@@ -79,14 +63,8 @@ public class ChessStrategy extends JFrame {
 	/**
 	 * 黑棋子的策略
 	 * 
-	 * @param chesslistB
-	 * @return the next black point
 	 */
 	public Point BlackNextStep(Point[] chesslistB) {
-
-		/**
-		 * 黑子策略
-		 */
 
 		ArrayList<ArrayList<Point>> NextPoint = NextCandidatedPoints(chesslistB);
 		ArrayList<Point> blackList = NextPoint.get(0);
@@ -95,10 +73,6 @@ public class ChessStrategy extends JFrame {
 		int blackLongnum = findTheLongestChessNums(blackList.get(0), chesslistB);
 		int whiteLongnum = findTheLongestChessNums(whiteList.get(0), chesslistB);
 
-		// System.out.println("Current black " + "blackLongnum :" + blackLongnum
-		// + " whiteLongnum " + whiteLongnum
-		// + " backlist nums " + blackList.size() + " whitelist nums " +
-		// whiteList.size());
 		if (blackLongnum < whiteLongnum) {
 			// 连子数比白子要少，就从白字的候选结点中选择评价函数最高的结点
 			ArrayList<Point> candicatedPoint = PointEvalution(whiteList, chesslistB, whiteLongnum);
@@ -258,14 +232,9 @@ public class ChessStrategy extends JFrame {
 		if (whitePointlist.size() != 0)
 			whiteLongnum = whitePointlist.get(0).getValue();
 
+		System.out.println("Print the result ");
 		System.out.println(
 				"Search the white and black num is " + " blackNum " + blackLongnum + " whitenum " + whiteLongnum);
-		System.out.println("Print the result ");
-
-		// for (Map.Entry<Point, Integer> map : blackPointlist) {
-		// System.out.println("map " + map.getKey().getX() + " " +
-		// map.getKey().getY() + " length " + map.getValue());
-		// }
 
 		ArrayList<Point> blackList = new ArrayList<Point>();
 		if (blackLongnum != -1) {
@@ -293,7 +262,6 @@ public class ChessStrategy extends JFrame {
 	}
 
 	// 当前位置是否有节点
-
 	public boolean IsHasChess(int xIndex, int yIndex, Point[] chesslist) {
 
 		for (Point p : chesslist) {
@@ -345,7 +313,6 @@ public class ChessStrategy extends JFrame {
 	}
 
 	// 2. 垂直搜索
-
 	public int rowSearch(Point p, Point[] chesslist) {
 
 		int longColLength = 1;
@@ -365,7 +332,6 @@ public class ChessStrategy extends JFrame {
 	}
 
 	// 3. 右上搜索
-
 	public int rightupSearch(Point p, Point[] chesslist) {
 
 		int LongRightUpLength = 1;
@@ -403,6 +369,7 @@ public class ChessStrategy extends JFrame {
 		return LongLeftUpLength;
 	}
 
+	// 电脑VS电脑
 	public void computerVscomputer(ChessBoard chessboard) {
 		boolean flag = true;
 		while (true && chessboard.GetMode() == 2) {

@@ -76,7 +76,7 @@ public class Main extends JFrame {
 
 		ppButton = new JButton("人人对弈");
 		pcButton = new JButton("人机对弈");
-		ccButton = new JButton("机机对弈");
+		ccButton = new JButton("电脑对弈");
 
 		toolbar.setLayout(new FlowLayout(FlowLayout.CENTER));
 

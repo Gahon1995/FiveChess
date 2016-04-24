@@ -66,9 +66,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 				int x1 = (e.getX() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 				// 将鼠标点击的坐标位置转成网格索引
 				int y1 = (e.getY() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
-				// 游戏已经结束不能下
-				// 落在棋盘外不能下
-				// x，y位置已经有棋子存在，不能下
+
 				if (x1 < 0 || x1 > ROWS || y1 < 0 || y1 > COLS || gameOver || findChess(x1, y1))
 					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				// 设置成默认状态
@@ -82,7 +80,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 	// ************************ 在棋盘上画棋子
 	public void paintChess(Graphics g) {
 		for (int i = 0; i < chessCount; i++) {
-			// 网格交叉点x，y坐标
+
 			int xPos = chessList[i].getX() * GRID_SPAN + MARGIN;
 			int yPos = chessList[i].getY() * GRID_SPAN + MARGIN;
 			g.setColor(chessList[i].getColor());// 设置颜色
@@ -92,29 +90,32 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			// yPos-Point.DIAMETER/2, Point.DIAMETER, Point.DIAMETER, null);
 			colortemp = chessList[i].getColor();
 			if (colortemp == Color.black) {
+
 				RadialGradientPaint paint = new RadialGradientPaint(xPos - Point.DIAMETER / 2 + 25,
 						yPos - Point.DIAMETER / 2 + 10, 20, new float[] { 0f, 1f },
 						new Color[] { Color.WHITE, Color.BLACK });
+
 				((Graphics2D) g).setPaint(paint);
 				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
 						RenderingHints.VALUE_ALPHA_INTERPOLATION_DEFAULT);
 
 			} else if (colortemp == Color.white) {
+
 				RadialGradientPaint paint = new RadialGradientPaint(xPos - Point.DIAMETER / 2 + 25,
 						yPos - Point.DIAMETER / 2 + 10, 70, new float[] { 0f, 1f },
 						new Color[] { Color.WHITE, Color.BLACK });
+
 				((Graphics2D) g).setPaint(paint);
 				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION,
 						RenderingHints.VALUE_ALPHA_INTERPOLATION_DEFAULT);
-
 			}
 
 			Ellipse2D e = new Ellipse2D.Float(xPos - Point.DIAMETER / 2, yPos - Point.DIAMETER / 2, 34, 35);
 			((Graphics2D) g).fill(e);
-			// 标记最后一个棋子的红矩形框
 
+			// 最后一个棋子画上红矩形框
 			if (i == chessCount - 1) {// 如果是最后一个棋子
 				g.setColor(Color.red);
 				g.drawRect(xPos - Point.DIAMETER / 2, yPos - Point.DIAMETER / 2, 34, 35);
@@ -126,25 +127,25 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 	@Override
 	public void paintComponent(Graphics g) {
 
-		super.paintComponent(g);// 画棋盘
+		super.paintComponent(g);
 
 		int imgWidth = img.getWidth(this);
-		int imgHeight = img.getHeight(this);// 获得图片的宽度与高度
+		int imgHeight = img.getHeight(this);
 		int FWidth = getWidth();
-		int FHeight = getHeight();// 获得窗口的宽度与高度
+		int FHeight = getHeight();
 		int x = (FWidth - imgWidth) / 2;
 		int y = (FHeight - imgHeight) / 2;
 		g.drawImage(img, 0, 0, FWidth, FHeight, this);
 
-		for (int i = 0; i <= ROWS; i++) {// 画横线
+		// 画横线
+		for (int i = 0; i <= ROWS; i++) {
 			// g.drawString(Integer.toString(i), 8, MARGIN + i * GRID_SPAN);
 			g.drawLine(MARGIN, MARGIN + i * GRID_SPAN, MARGIN + COLS * GRID_SPAN, MARGIN + i * GRID_SPAN);
 		}
 		for (int i = 0; i <= COLS; i++) {// 画竖线
-
+			// g.drawString(Integer.toString(i), MARGIN + i * GRID_SPAN -
+			// 3,MARGIN - 8);
 			g.drawLine(MARGIN + i * GRID_SPAN, MARGIN, MARGIN + i * GRID_SPAN, MARGIN + ROWS * GRID_SPAN);
-			// g.drawString(Integer.toString(i), MARGIN + i * GRID_SPAN - 3,
-			// MARGIN - 8);
 		}
 
 		paintChess(g);
@@ -152,7 +153,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 
 	// ***************** 增加棋子
 	public Point[] addChess(int x, int y) {
-		// 游戏结束时，不再能下
+
 		if (gameOver) {
 			String msg = String.format("游戏结束，胜负已定！");
 			JOptionPane.showMessageDialog(this, msg);
@@ -160,7 +161,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		}
 
 		String colorName = isBlack ? "黑棋" : "白棋";
-		// 落在棋盘外不能下
+
 		if (x < 0 || x > ROWS || y < 0 || y > COLS)
 			return null;
 
@@ -171,15 +172,13 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			return null;
 		}
 
-		// 可以进行时的处理
 		Point ch = new Point(x, y, isBlack ? Color.black : Color.white);
 
 		chessList[chessCount++] = ch;
 		xIndex = x;
 		yIndex = y;
-		repaint();// 通知系统重新绘制
-
-		// 如果胜出则给出提示信息，不能继续下棋
+		// 通知系统重新绘制
+		repaint();
 
 		if (isWin()) {
 			System.out.println("Win Win Win Win Win Win");
@@ -252,7 +251,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			isBlack = !isBlack;
 		}
 
-		// 人机模式,黑子表示人先行，白子表示电脑
+		// 人机模式,黑子表示人先行，白子表示电脑,电脑下时，不监听事件
 		if (this.Mode == 1) {
 			if (isBlack) {
 				if (gameOver)
@@ -350,7 +349,6 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			continueCount = 1;
 
 		// ******************* 右上斜向搜索 **************************
-		// 继续另一种情况的搜索：斜向
 		// 东北寻找
 		for (int x = xIndex + 1, y = yIndex - 1; y >= 0 && x <= COLS; x++, y--) {
 			Color c = isBlack ? Color.black : Color.white;
@@ -373,7 +371,6 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			continueCount = 1;
 
 		// **************** 左上斜上搜索 ****************************
-		// 继续另一种情况的搜索：斜向
 		// 西北寻找
 		for (int x = xIndex - 1, y = yIndex - 1; x >= 0 && y >= 0; x--, y--) {
 			Color c = isBlack ? Color.black : Color.white;
@@ -474,7 +471,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		// 鼠标按钮在组件上释放时调用
 	}
 
-	// 线程
+	// 当模式为人机和电脑之间对弈时，需要开启新的线程
 	@Override
 	public void run() {
 		// 机机模式
