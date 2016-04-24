@@ -40,6 +40,20 @@ public class Testforthechesspoint {
 			System.out.println(i + "  " + rand.nextInt(10));
 		}
 
+		System.out.println("Test for the point array");
+		// 测试数组是值传递还是址传递
+		Point[] pointArray = new Point[10];
+		for (Point temp : pointArray) {
+			if (temp != null)
+				System.out.println(temp.getX() + "  " + temp.getY());
+		}
+		testforArray(pointArray);
+		System.out.println("After the modifacation for the array");
+		for (Point temp : pointArray) {
+			if (temp != null)
+				System.out.println(temp.getX() + "  " + temp.getY());
+		}
+
 	}
 
 	public static ArrayList<ArrayList<Point>> testReturnArraylist() {
@@ -55,6 +69,11 @@ public class Testforthechesspoint {
 		result.add(secondlist);
 
 		return result;
+	}
+
+	public static void testforArray(Point[] points) {
+		Point t = new Point(10, 10, Color.black);
+		points[0] = t;
 	}
 
 }

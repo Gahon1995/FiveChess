@@ -17,6 +17,8 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import Strategy.ChessStrategy;
+
 /**
  * 
  * @author Hao
@@ -24,12 +26,15 @@ import javax.swing.JPanel;
  *         class for t he chess board of 18 * 18
  */
 
-public class ChessBoard extends JPanel implements MouseListener {
+public class ChessBoard extends JPanel implements MouseListener, Runnable {
 
 	public static final int MARGIN = 25;// 边距
 	public static final int GRID_SPAN = 35;// 网格间距
 	public static final int ROWS = 18;// 棋盘行数
 	public static final int COLS = 18;// 棋盘列数
+
+	// 默认是人人模式,0是人人模式，1是人机模式，2是机机模式
+	private int Mode = 0;
 
 	Point[] chessList = new Point[(ROWS + 1) * (COLS + 1)];// 初始每个数组元素为null
 	boolean isBlack = true;// 默认开始是黑棋先
@@ -130,13 +135,14 @@ public class ChessBoard extends JPanel implements MouseListener {
 		g.drawImage(img, x, y, null);
 
 		for (int i = 0; i <= ROWS; i++) {// 画横线
-			g.drawString(Integer.toString(i), 8, MARGIN + i * GRID_SPAN);
+			// g.drawString(Integer.toString(i), 8, MARGIN + i * GRID_SPAN);
 			g.drawLine(MARGIN, MARGIN + i * GRID_SPAN, MARGIN + COLS * GRID_SPAN, MARGIN + i * GRID_SPAN);
 		}
 		for (int i = 0; i <= COLS; i++) {// 画竖线
 
 			g.drawLine(MARGIN + i * GRID_SPAN, MARGIN, MARGIN + i * GRID_SPAN, MARGIN + ROWS * GRID_SPAN);
-			g.drawString(Integer.toString(i), MARGIN + i * GRID_SPAN - 3, MARGIN - 8);
+			// g.drawString(Integer.toString(i), MARGIN + i * GRID_SPAN - 3,
+			// MARGIN - 8);
 		}
 
 		paintChess(g);
@@ -210,58 +216,78 @@ public class ChessBoard extends JPanel implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {// 鼠标在组件上按下时调用
 
-		// 游戏结束时，不再能下
-		if (gameOver)
-			return;
+		if (GetMode() == 0) {
+			// 游戏结束时，不再能下
+			if (gameOver)
+				return;
 
-		String colorName = isBlack ? "黑棋" : "白棋";
+			String colorName = isBlack ? "黑棋" : "白棋";
 
-		// 将鼠标点击的坐标位置转换成网格索引
-		xIndex = (e.getX() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
-		yIndex = (e.getY() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
+			// 将鼠标点击的坐标位置转换成网格索引
+			xIndex = (e.getX() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
+			yIndex = (e.getY() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 
-		// 落在棋盘外不能下
-		if (xIndex < 0 || xIndex > ROWS || yIndex < 0 || yIndex > COLS)
-			return;
+			// 落在棋盘外不能下
+			if (xIndex < 0 || xIndex > ROWS || yIndex < 0 || yIndex > COLS)
+				return;
 
-		// 如果x，y位置已经有棋子存在，不能下
-		if (findChess(xIndex, yIndex))
-			return;
+			// 如果x，y位置已经有棋子存在，不能下
+			if (findChess(xIndex, yIndex))
+				return;
 
-		// 可以进行时的处理
-		Point ch = new Point(xIndex, yIndex, isBlack ? Color.black : Color.white);
-		chessList[chessCount++] = ch;
-		repaint();// 通知系统重新绘制
+			// 可以进行时的处理
+			Point ch = new Point(xIndex, yIndex, isBlack ? Color.black : Color.white);
+			chessList[chessCount++] = ch;
+			repaint();// 通知系统重新绘制
 
-		// 如果胜出则给出提示信息，不能继续下棋
+			// 如果胜出则给出提示信息，不能继续下棋
 
-		if (isWin()) {
-			String msg = String.format("恭喜，%s赢了！", colorName);
-			JOptionPane.showMessageDialog(this, msg);
-			gameOver = true;
+			if (isWin()) {
+				String msg = String.format("恭喜，%s赢了！", colorName);
+				JOptionPane.showMessageDialog(this, msg);
+				gameOver = true;
+			}
+			isBlack = !isBlack;
 		}
-		isBlack = !isBlack;
-	}
 
-	// 覆盖mouseListener的方法
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// 鼠标按键在组件上单击时调用
-	}
+		// 人机模式,黑子表示人先行，白子表示电脑
+		if (this.Mode == 1) {
+			if (isBlack) {
+				if (gameOver)
+					return;
 
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// 鼠标进入到组件上时调用
-	}
+				// 将鼠标点击的坐标位置转换成网格索引
+				xIndex = (e.getX() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
+				yIndex = (e.getY() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// 鼠标离开组件时调用
-	}
+				// 落在棋盘外不能下
+				if (xIndex < 0 || xIndex > ROWS || yIndex < 0 || yIndex > COLS)
+					return;
 
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// 鼠标按钮在组件上释放时调用
+				// 如果x，y位置已经有棋子存在，不能下
+				if (findChess(xIndex, yIndex))
+					return;
+
+				// 可以进行时的处理
+				Point ch = new Point(xIndex, yIndex, Color.black);
+				chessList[chessCount++] = ch;
+				repaint();// 通知系统重新绘制
+
+				// 如果胜出则给出提示信息，不能继续下棋
+
+				if (isWin()) {
+					String msg = String.format("恭喜，%s赢了！", "黑棋");
+					JOptionPane.showMessageDialog(this, msg);
+					gameOver = true;
+				}
+				isBlack = !isBlack;
+			}
+
+			return;
+		}
+
+		if (this.Mode == 2)
+			return;
 	}
 
 	// 在棋子数组中查找是否有索引为x，y的棋子存在
@@ -416,4 +442,56 @@ public class ChessBoard extends JPanel implements MouseListener {
 		return this.chessList;
 	}
 
+	public int GetMode() {
+		return this.Mode;
+	}
+
+	public void SetMode(int x) {
+		this.Mode = x;
+		restartGame();
+	}
+
+	// 覆盖mouseListener的方法
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// 鼠标按键在组件上单击时调用
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// 鼠标进入到组件上时调用
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// 鼠标离开组件时调用
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// 鼠标按钮在组件上释放时调用
+	}
+
+	// 线程
+	@Override
+	public void run() {
+		// 机机模式
+		if (this.Mode == 2) {
+			ChessStrategy chessStrategy = new ChessStrategy();
+			chessStrategy.computerVscomputer(this);
+		}
+		// 人机模式
+		if (this.Mode == 1) {
+			ChessStrategy chessStrategy = new ChessStrategy();
+			Point t;
+			while (!this.gameOver && this.Mode == 1) {
+				System.out.println("5");
+				if (!this.isBlack) {
+					t = chessStrategy.WhiteNextStep(this.getChesslist());
+					WhiteAddChess(t.getX(), t.getY());
+				}
+			}
+		}
+
+	}
 }
