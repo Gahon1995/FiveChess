@@ -1,6 +1,7 @@
 package Strategy;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -15,7 +16,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import BaseChess.ChessBoard;
-import BaseChess.Point;
 
 /**
  * 
@@ -26,12 +26,6 @@ import BaseChess.Point;
 
 public class Main extends JFrame {
 
-	/**
-	 * @param args
-	 * @throws IOException
-	 * @throws InterruptedException
-	 */
-
 	private ChessBoard chessBoard;
 
 	private JPanel toolbar;
@@ -41,33 +35,32 @@ public class Main extends JFrame {
 	private JMenu sysMenu;
 	private JMenuItem startMenuItem, exitMenuItem, backMenuItem;
 
-	// 重新开始，退出，和悔棋菜单项
 	public Main() {
-		setTitle("单机版五子棋");// 设置标题
-		chessBoard = new ChessBoard();
+		setTitle("单机版五子棋");
 
+		// 1. 创建棋盘布局
+
+		chessBoard = new ChessBoard();
 		Container contentPane = getContentPane();
 		contentPane.add(chessBoard);
 		chessBoard.setOpaque(true);
 
-		// 创建和添加菜单
-		// 初始化菜单栏
-		menuBar = new JMenuBar();
-		sysMenu = new JMenu("系统");
-		// 初始化菜单
+		// 2. 创建和添加菜单
 
-		// 初始化菜单项
+		menuBar = new JMenuBar();
+		menuBar.setBackground(Color.WHITE);
+		sysMenu = new JMenu("系统");
+
 		startMenuItem = new JMenuItem("重新开始");
 		exitMenuItem = new JMenuItem("退出");
 		backMenuItem = new JMenuItem("悔棋");
 
-		// 将三个菜单项添加到菜单上
 		sysMenu.add(startMenuItem);
 		sysMenu.add(exitMenuItem);
 		sysMenu.add(backMenuItem);
-		// 初始化按钮事件监听器内部类
+
 		MyItemListener lis = new MyItemListener();
-		// 将三个菜单注册到事件监听器上
+
 		startMenuItem.addActionListener(lis);
 		backMenuItem.addActionListener(lis);
 		exitMenuItem.addActionListener(lis);
@@ -76,28 +69,32 @@ public class Main extends JFrame {
 
 		setJMenuBar(menuBar);// 将menuBar设置为菜单栏
 
-		toolbar = new JPanel();// 工具面板实例化
-		// 三个按钮初始化
+		// 3. 创建底部按钮布局
+
+		toolbar = new JPanel();
+		toolbar.setBackground(Color.WHITE);
+
 		ppButton = new JButton("人人对弈");
 		pcButton = new JButton("人机对弈");
 		ccButton = new JButton("机机对弈");
-		// 将工具面板按钮用FlowLayout布局
-		toolbar.setLayout(new FlowLayout(FlowLayout.LEFT));
-		// 将三个按钮添加到工具面板
+
+		toolbar.setLayout(new FlowLayout(FlowLayout.CENTER));
+
 		toolbar.add(ppButton);
 		toolbar.add(pcButton);
 		toolbar.add(ccButton);
-		// 将三个按钮注册监听事件
+
 		ppButton.addActionListener(lis);
 		pcButton.addActionListener(lis);
 		ccButton.addActionListener(lis);
-		// 将工具面板布局到界面”南方“也就是下方
+
 		add(toolbar, BorderLayout.SOUTH);
-		add(chessBoard);// 将面板对象添加到窗体上
-		// 设置界面关闭事件
+		add(chessBoard);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		// setSize(800,800);
-		pack();// 自适应大小
+
+		// 自适应窗口大小
+		pack();
 
 	}
 
@@ -105,18 +102,19 @@ public class Main extends JFrame {
 		return this.chessBoard;
 	}
 
+	// 监听事件
 	private class MyItemListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			Object obj = e.getSource();// 获得事件源
+			Object obj = e.getSource();
+
 			if (obj == startMenuItem) {
-				// 重新开始
 				// JFiveFrame.this内部类引用外部类
 				System.out.println("重新开始");
 				chessBoard.restartGame();
-			} else if (obj == exitMenuItem)
+			} else if (obj == exitMenuItem) {
 				System.exit(0);
-			else if (obj == backMenuItem) {
+			} else if (obj == backMenuItem) {
 				System.out.println("悔棋...");
 				chessBoard.goback();
 			} else if (obj == ppButton) {
@@ -128,7 +126,6 @@ public class Main extends JFrame {
 				Thread t = new Thread(chessBoard);
 				t.start();
 			} else if (obj == ccButton) {
-				// 机机对弈
 				System.out.println("cc Button");
 				chessBoard.SetMode(2);
 				Thread t = new Thread(chessBoard);
@@ -138,13 +135,11 @@ public class Main extends JFrame {
 	}
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		Point[] chesslist = null;
-		Point NextStep;
 
-		int stepx, stepy;
-		ChessStrategy f = new ChessStrategy();// 创建主框架
+		// 显示主框架
+
 		Main m = new Main();
-		m.setVisible(true);// 显示主框架
+		m.setVisible(true);
 
 	}
 

@@ -23,7 +23,7 @@ import Strategy.ChessStrategy;
  * 
  * @author Hao
  *
- *         class for t he chess board of 18 * 18
+ *         class for the chess board of 18 * 18
  */
 
 public class ChessBoard extends JPanel implements MouseListener, Runnable {
@@ -33,25 +33,27 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 	public static final int ROWS = 18;// 棋盘行数
 	public static final int COLS = 18;// 棋盘列数
 
-	// 默认是人人模式,0是人人模式，1是人机模式，2是机机模式
+	Point[] chessList = new Point[(ROWS + 1) * (COLS + 1)];
+	int chessCount;
+
+	// 设定五子棋模式
+	// 0:人人模式
+	// 1:人机模式
+	// 2:机机模式
 	private int Mode = 0;
 
-	Point[] chessList = new Point[(ROWS + 1) * (COLS + 1)];// 初始每个数组元素为null
 	boolean isBlack = true;// 默认开始是黑棋先
-	boolean gameOver = false;// 游戏是否结束
-	int chessCount;// 当前棋盘棋子的个数
+	boolean gameOver = false;
 	int xIndex, yIndex;// 当前刚下棋子的索引
 
 	Image img;
-	Image shadows;
+	// Image shadows;
 	Color colortemp;
 
-	// ************************** 棋盘类
 	public ChessBoard() {
 
-		// setBackground(Color.GRAY);//设置背景色为灰色
-		img = Toolkit.getDefaultToolkit().getImage("board.jpg");
-		shadows = Toolkit.getDefaultToolkit().getImage("shadows.jpg");
+		img = Toolkit.getDefaultToolkit().getImage("background.jpg");
+		// shadows = Toolkit.getDefaultToolkit().getImage("shadows.jpg");
 		addMouseListener(this);
 		addMouseMotionListener(new MouseMotionListener() {
 			@Override
@@ -132,7 +134,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		int FHeight = getHeight();// 获得窗口的宽度与高度
 		int x = (FWidth - imgWidth) / 2;
 		int y = (FHeight - imgHeight) / 2;
-		g.drawImage(img, x, y, null);
+		g.drawImage(img, 0, 0, FWidth, FHeight, this);
 
 		for (int i = 0; i <= ROWS; i++) {// 画横线
 			// g.drawString(Integer.toString(i), 8, MARGIN + i * GRID_SPAN);
