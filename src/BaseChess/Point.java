@@ -11,10 +11,10 @@ import java.awt.Color;
 
 public class Point {
 
-	// X: X坐标
-	// Y: Y坐标
-	// color: 棋子颜色
-	// DIAMETER: 棋子直径
+	// X: X鍧愭爣
+	// Y: Y鍧愭爣
+	// color: 妫嬪瓙棰滆壊
+	// DIAMETER: 妫嬪瓙鐩村緞
 	private int x;
 	private int y;
 	private Color color;

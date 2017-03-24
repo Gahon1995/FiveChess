@@ -17,7 +17,7 @@ public class Testforthechesspoint {
 
 		System.out.println("add the element , the length of the arrays   " + points.length);
 
-		// ***** ±ÜÃâ¼ìË÷nullµÄÏà¹ØÔªËØ
+		// ***** é¿å…æ£€ç´¢nullçš„ç›¸å…³å…ƒç´ 
 		for (Point temp : points) {
 			if (temp != null)
 				System.out.println(temp.getX() + " " + temp.getY());
@@ -41,7 +41,7 @@ public class Testforthechesspoint {
 		}
 
 		System.out.println("Test for the point array");
-		// ²âÊÔÊı×éÊÇÖµ´«µİ»¹ÊÇÖ·´«µİ
+		// æµ‹è¯•æ•°ç»„æ˜¯å€¼ä¼ é€’è¿˜æ˜¯å€ä¼ é€’
 		Point[] pointArray = new Point[10];
 		for (Point temp : pointArray) {
 			if (temp != null)

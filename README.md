@@ -1,13 +1,11 @@
 # 五子棋 
 
 
-Author: WangHao
+Author: Gahon
 
-Email: [wanghaovip2020@gmail.com](wanghaovip2020@gmail.com)  
+注：此项目来自网络，为了方便保存，所以上传至此（原作者：WangHao）
 
-**如果遇到Bug问题，欢迎Email我！**
-
-配置环境： JDk1.7
+配置环境： JDk1.8
 
 棋子默认是**黑子**先行
 

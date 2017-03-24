@@ -21,7 +21,7 @@ import BaseChess.Point;
 public class ChessStrategy {
 
 	/**
-	 * °×Æå×ÓµÄ²ßÂÔ,¸ù¾İµ±Ç°ÆåÅÌ£¬·µ»ØÏÂÒ»¸ö°××ÓÏÂÂäµã
+	 * ç™½æ£‹å­çš„ç­–ç•¥,æ ¹æ®å½“å‰æ£‹ç›˜ï¼Œè¿”å›ä¸‹ä¸€ä¸ªç™½å­ä¸‹è½ç‚¹
 	 * 
 	 */
 	public Point WhiteNextStep(Point[] chessList) {
@@ -34,24 +34,24 @@ public class ChessStrategy {
 		int whiteLongnum = findTheLongestChessNums(whiteList.get(0), chessList);
 
 		if (whiteLongnum < blackLongnum) {
-			// °×µÄµÄÁ¬×ÓÊı±ÈºÚ×ÓÒªÉÙ£¬¾Í´ÓºÚ×ÓµÄºòÑ¡½áµãÖĞÑ¡ÔñÆÀ¼Ûº¯Êı×î¸ßµÄ½áµã
+			// ç™½çš„çš„è¿å­æ•°æ¯”é»‘å­è¦å°‘ï¼Œå°±ä»é»‘å­çš„å€™é€‰ç»“ç‚¹ä¸­é€‰æ‹©è¯„ä»·å‡½æ•°æœ€é«˜çš„ç»“ç‚¹
 			ArrayList<Point> candicatedPoint = PointEvalution(blackList, chessList, blackLongnum);
 			if (candicatedPoint.size() == 1)
 				return candicatedPoint.get(0);
 			else {
-				// ´ÓºòÑ¡½áµãÖĞËæ»úÑ¡È¡
+				// ä»å€™é€‰ç»“ç‚¹ä¸­éšæœºé€‰å–
 				int size = candicatedPoint.size();
 				Random rand = new Random();
 				int Index = rand.nextInt(size);
 				return candicatedPoint.get(Index);
 			}
 		} else {
-			// °××ÓÁ¬×ÓÊı±ÈºÚ×Ó¶à£¬Ôò´Ó×Ô¼ºµÄºòÑ¡½áµãÖĞÑ¡Ôñ
+			// ç™½å­è¿å­æ•°æ¯”é»‘å­å¤šï¼Œåˆ™ä»è‡ªå·±çš„å€™é€‰ç»“ç‚¹ä¸­é€‰æ‹©
 			ArrayList<Point> candicatedPoint = PointEvalution(whiteList, chessList, whiteLongnum);
 			if (candicatedPoint.size() == 1)
 				return candicatedPoint.get(0);
 			else {
-				// ´ÓºòÑ¡½áµãÖĞËæ»úÑ¡È¡
+				// ä»å€™é€‰ç»“ç‚¹ä¸­éšæœºé€‰å–
 				int size = candicatedPoint.size();
 				Random rand = new Random();
 				int Index = rand.nextInt(size);
@@ -61,7 +61,7 @@ public class ChessStrategy {
 	}
 
 	/**
-	 * ºÚÆå×ÓµÄ²ßÂÔ
+	 * é»‘æ£‹å­çš„ç­–ç•¥
 	 * 
 	 */
 	public Point BlackNextStep(Point[] chesslistB) {
@@ -74,24 +74,24 @@ public class ChessStrategy {
 		int whiteLongnum = findTheLongestChessNums(whiteList.get(0), chesslistB);
 
 		if (blackLongnum < whiteLongnum) {
-			// Á¬×ÓÊı±È°××ÓÒªÉÙ£¬¾Í´Ó°××ÖµÄºòÑ¡½áµãÖĞÑ¡ÔñÆÀ¼Ûº¯Êı×î¸ßµÄ½áµã
+			// è¿å­æ•°æ¯”ç™½å­è¦å°‘ï¼Œå°±ä»ç™½å­—çš„å€™é€‰ç»“ç‚¹ä¸­é€‰æ‹©è¯„ä»·å‡½æ•°æœ€é«˜çš„ç»“ç‚¹
 			ArrayList<Point> candicatedPoint = PointEvalution(whiteList, chesslistB, whiteLongnum);
 			if (candicatedPoint.size() == 1)
 				return candicatedPoint.get(0);
 			else {
-				// ´ÓºòÑ¡½áµãÖĞËæ»úÑ¡È¡
+				// ä»å€™é€‰ç»“ç‚¹ä¸­éšæœºé€‰å–
 				int size = candicatedPoint.size();
 				Random rand = new Random();
 				int Index = rand.nextInt(size);
 				return candicatedPoint.get(Index);
 			}
 		} else {
-			// Á¬×ÓÊı±È°××Ó¶à£¬Ôò´Ó×Ô¼ºµÄºòÑ¡½áµãÖĞÑ¡Ôñ
+			// è¿å­æ•°æ¯”ç™½å­å¤šï¼Œåˆ™ä»è‡ªå·±çš„å€™é€‰ç»“ç‚¹ä¸­é€‰æ‹©
 			ArrayList<Point> candicatedPoint = PointEvalution(blackList, chesslistB, blackLongnum);
 			if (candicatedPoint.size() == 1)
 				return candicatedPoint.get(0);
 			else {
-				// ´ÓºòÑ¡½áµãÖĞËæ»úÑ¡È¡
+				// ä»å€™é€‰ç»“ç‚¹ä¸­éšæœºé€‰å–
 				int size = candicatedPoint.size();
 				Random rand = new Random();
 				int Index = rand.nextInt(size);
@@ -101,21 +101,21 @@ public class ChessStrategy {
 
 	}
 
-	// ÕÒµ½Æå×ÓÎ»ÖÃP×î´óµÄÁ¬ĞøÆå×ÓÊıÄ¿
+	// æ‰¾åˆ°æ£‹å­ä½ç½®Pæœ€å¤§çš„è¿ç»­æ£‹å­æ•°ç›®
 	public int findTheLongestChessNums(Point p, Point[] chesslist) {
 
 		int longLength = 0;
 
-		// 1. ºáÏòÑ°ÕÒ
+		// 1. æ¨ªå‘å¯»æ‰¾
 		int longLineLength = lineSearch(p, chesslist);
 
-		// 2. ×İÏòÑ°ÕÒ
+		// 2. çºµå‘å¯»æ‰¾
 		int longColLength = rowSearch(p, chesslist);
 
-		// 3. ÓÒÉÏ½ÇÑ°ÕÒ
+		// 3. å³ä¸Šè§’å¯»æ‰¾
 		int LongRightUpLength = rightupSearch(p, chesslist);
 
-		// 4. ×óÉÏ½ÇÑ°ÕÒ
+		// 4. å·¦ä¸Šè§’å¯»æ‰¾
 		int LongLeftUpLength = leftupSearch(p, chesslist);
 
 		// get the max
@@ -133,7 +133,7 @@ public class ChessStrategy {
 		return longLength;
 	}
 
-	// ÄÜ·ñÕÒµ½ĞèÒªµÄ½áµã
+	// èƒ½å¦æ‰¾åˆ°éœ€è¦çš„ç»“ç‚¹
 	public boolean findNeedPoint(int xIndex, int yIndex, Color c, Point[] chesslist) {
 
 		for (Point p : chesslist)
@@ -143,10 +143,10 @@ public class ChessStrategy {
 		return false;
 	}
 
-	// **************¶Ôµ±Ç°½áµãµÄÆÀ¼Ûº¯Êı ,²¢·µ»ØÆÀ¼Û½Ï¸ßµÄº¯Êı**********
+	// **************å¯¹å½“å‰ç»“ç‚¹çš„è¯„ä»·å‡½æ•° ,å¹¶è¿”å›è¯„ä»·è¾ƒé«˜çš„å‡½æ•°**********
 	public ArrayList<Point> PointEvalution(ArrayList<Point> plist, Point[] chesslist, int longnum) {
 
-		// 1. ¼òµ¥µÄÑ¡ÔñÊ¹×Ô¼ºÁ¬×Ó´ÎÊı×î¶àµÄÎ»ÖÃ
+		// 1. ç®€å•çš„é€‰æ‹©ä½¿è‡ªå·±è¿å­æ¬¡æ•°æœ€å¤šçš„ä½ç½®
 		ArrayList<Point> resultPointList = new ArrayList<Point>();
 		HashMap<Point, Integer> map = new HashMap<Point, Integer>();
 		int maxtime = -1;
@@ -164,7 +164,7 @@ public class ChessStrategy {
 		return resultPointList;
 	}
 
-	// µÃµ½ºÚ°×Æå×ÓµÄºòÑ¡Î»ÖÃ,¼´Ê×ÏÈÑ¡³öÊ¹×Ô¼ºÁ¬×ÓÊıÄ¿×î¶àÎ»ÖÃµÄ½áµã£¬Í¬Ê±¿¼ÂÇºÚ°×½áµã
+	// å¾—åˆ°é»‘ç™½æ£‹å­çš„å€™é€‰ä½ç½®,å³é¦–å…ˆé€‰å‡ºä½¿è‡ªå·±è¿å­æ•°ç›®æœ€å¤šä½ç½®çš„ç»“ç‚¹ï¼ŒåŒæ—¶è€ƒè™‘é»‘ç™½ç»“ç‚¹
 	public ArrayList<ArrayList<Point>> NextCandidatedPoints(Point[] chesslist) {
 
 		HashMap<Point, Integer> blackpointLongnum = new HashMap<Point, Integer>();
@@ -261,7 +261,7 @@ public class ChessStrategy {
 		return resultList;
 	}
 
-	// µ±Ç°Î»ÖÃÊÇ·ñÓĞ½Úµã
+	// å½“å‰ä½ç½®æ˜¯å¦æœ‰èŠ‚ç‚¹
 	public boolean IsHasChess(int xIndex, int yIndex, Point[] chesslist) {
 
 		for (Point p : chesslist) {
@@ -271,7 +271,7 @@ public class ChessStrategy {
 		return false;
 	}
 
-	// ¸ø¶¨Ò»¸öÎ»ÖÃ£¬¸ø¶¨×î³¤Á¬×ÓÊı£¬ÅĞ¶ÏÓĞ¼¸¸öÕâÑùµÄÁ¬×ÓÊı¡£
+	// ç»™å®šä¸€ä¸ªä½ç½®ï¼Œç»™å®šæœ€é•¿è¿å­æ•°ï¼Œåˆ¤æ–­æœ‰å‡ ä¸ªè¿™æ ·çš„è¿å­æ•°ã€‚
 	public int numsofthelongchess(Point p, Point[] chesslist, int longnum) {
 
 		int nums = 0;
@@ -291,8 +291,8 @@ public class ChessStrategy {
 		return nums;
 	}
 
-	// --------- ËÄ¸ö·½ÏòËÑË÷º¯Êı
-	// 1. Ö±ÏßËÑË÷
+	// --------- å››ä¸ªæ–¹å‘æœç´¢å‡½æ•°
+	// 1. ç›´çº¿æœç´¢
 	public int lineSearch(Point p, Point[] chesslist) {
 
 		int longLineLength = 1;
@@ -312,7 +312,7 @@ public class ChessStrategy {
 		return longLineLength;
 	}
 
-	// 2. ´¹Ö±ËÑË÷
+	// 2. å‚ç›´æœç´¢
 	public int rowSearch(Point p, Point[] chesslist) {
 
 		int longColLength = 1;
@@ -331,7 +331,7 @@ public class ChessStrategy {
 		return longColLength;
 	}
 
-	// 3. ÓÒÉÏËÑË÷
+	// 3. å³ä¸Šæœç´¢
 	public int rightupSearch(Point p, Point[] chesslist) {
 
 		int LongRightUpLength = 1;
@@ -350,7 +350,7 @@ public class ChessStrategy {
 		return LongRightUpLength;
 	}
 
-	// 4. ×óÉÏËÑË÷
+	// 4. å·¦ä¸Šæœç´¢
 	public int leftupSearch(Point p, Point[] chesslist) {
 
 		int LongLeftUpLength = 1;
@@ -369,12 +369,12 @@ public class ChessStrategy {
 		return LongLeftUpLength;
 	}
 
-	// µçÄÔVSµçÄÔ
+	// ç”µè„‘VSç”µè„‘
 	public void computerVscomputer(ChessBoard chessboard) {
 		boolean flag = true;
 		while (true && chessboard.GetMode() == 2) {
 
-			// ºÚ×ÓÂä
+			// é»‘å­è½
 			Point NextStep;
 			int stepx, stepy;
 			Point[] chesslist = chessboard.getChesslist();
@@ -395,7 +395,7 @@ public class ChessStrategy {
 				}
 			}
 
-			// °××ÓÂä
+			// ç™½å­è½
 			NextStep = WhiteNextStep(chesslist);
 			stepx = NextStep.getX();
 			stepy = NextStep.getY();

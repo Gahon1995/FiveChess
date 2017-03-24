@@ -5,7 +5,7 @@ package BaseChess;
  * @author Hao
  *
  *
- *         ²âÊÔÏß³ÌÀà
+ *         æµ‹è¯•çº¿ç¨‹ç±»
  */
 public class TestforThread extends Thread {
 

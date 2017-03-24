@@ -36,24 +36,24 @@ public class Main extends JFrame {
 	private JMenuItem startMenuItem, exitMenuItem, backMenuItem;
 
 	public Main() {
-		setTitle("µ¥»ú°æÎå×ÓÆå");
+		setTitle("å•æœºç‰ˆäº”å­æ£‹");
 
-		// 1. ´´½¨ÆåÅÌ²¼¾Ö
+		// 1. åˆ›å»ºæ£‹ç›˜å¸ƒå±€
 
 		chessBoard = new ChessBoard();
 		Container contentPane = getContentPane();
 		contentPane.add(chessBoard);
 		chessBoard.setOpaque(true);
 
-		// 2. ´´½¨ºÍÌí¼Ó²Ëµ¥
+		// 2. åˆ›å»ºå’Œæ·»åŠ èœå•
 
 		menuBar = new JMenuBar();
 		menuBar.setBackground(Color.WHITE);
-		sysMenu = new JMenu("ÏµÍ³");
+		sysMenu = new JMenu("ç³»ç»Ÿ");
 
-		startMenuItem = new JMenuItem("ÖØĞÂ¿ªÊ¼");
-		exitMenuItem = new JMenuItem("ÍË³ö");
-		backMenuItem = new JMenuItem("»ÚÆå");
+		startMenuItem = new JMenuItem("é‡æ–°å¼€å§‹");
+		exitMenuItem = new JMenuItem("é€€å‡º");
+		backMenuItem = new JMenuItem("æ‚”æ£‹");
 
 		sysMenu.add(startMenuItem);
 		sysMenu.add(exitMenuItem);
@@ -65,18 +65,18 @@ public class Main extends JFrame {
 		backMenuItem.addActionListener(lis);
 		exitMenuItem.addActionListener(lis);
 
-		menuBar.add(sysMenu);// ½«ÏµÍ³²Ëµ¥Ìí¼Óµ½²Ëµ¥À¸ÉÏ
+		menuBar.add(sysMenu);// å°†ç³»ç»Ÿèœå•æ·»åŠ åˆ°èœå•æ ä¸Š
 
-		setJMenuBar(menuBar);// ½«menuBarÉèÖÃÎª²Ëµ¥À¸
+		setJMenuBar(menuBar);// å°†menuBarè®¾ç½®ä¸ºèœå•æ 
 
-		// 3. ´´½¨µ×²¿°´Å¥²¼¾Ö
+		// 3. åˆ›å»ºåº•éƒ¨æŒ‰é’®å¸ƒå±€
 
 		toolbar = new JPanel();
 		toolbar.setBackground(Color.WHITE);
 
-		ppButton = new JButton("ÈËÈË¶ÔŞÄ");
-		pcButton = new JButton("ÈË»ú¶ÔŞÄ");
-		ccButton = new JButton("µçÄÔ¶ÔŞÄ");
+		ppButton = new JButton("äººäººå¯¹å¼ˆ");
+		pcButton = new JButton("äººæœºå¯¹å¼ˆ");
+		ccButton = new JButton("ç”µè„‘å¯¹å¼ˆ");
 
 		toolbar.setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -93,7 +93,7 @@ public class Main extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// ×ÔÊÊÓ¦´°¿Ú´óĞ¡
+		// è‡ªé€‚åº”çª—å£å¤§å°
 		pack();
 
 	}
@@ -102,20 +102,20 @@ public class Main extends JFrame {
 		return this.chessBoard;
 	}
 
-	// ¼àÌıÊÂ¼ş
+	// ç›‘å¬äº‹ä»¶
 	private class MyItemListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
 
 			if (obj == startMenuItem) {
-				// JFiveFrame.thisÄÚ²¿ÀàÒıÓÃÍâ²¿Àà
-				System.out.println("ÖØĞÂ¿ªÊ¼");
+				// JFiveFrame.thiså†…éƒ¨ç±»å¼•ç”¨å¤–éƒ¨ç±»
+				System.out.println("é‡æ–°å¼€å§‹");
 				chessBoard.restartGame();
 			} else if (obj == exitMenuItem) {
 				System.exit(0);
 			} else if (obj == backMenuItem) {
-				System.out.println("»ÚÆå...");
+				System.out.println("æ‚”æ£‹...");
 				chessBoard.goback();
 			} else if (obj == ppButton) {
 				System.out.println("pp Button");
@@ -136,7 +136,7 @@ public class Main extends JFrame {
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 
-		// ÏÔÊ¾Ö÷¿ò¼Ü
+		// æ˜¾ç¤ºä¸»æ¡†æ¶
 
 		Main m = new Main();
 		m.setVisible(true);

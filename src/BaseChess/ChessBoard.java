@@ -28,23 +28,23 @@ import Strategy.ChessStrategy;
 
 public class ChessBoard extends JPanel implements MouseListener, Runnable {
 
-	public static final int MARGIN = 25;// ±ß¾à
-	public static final int GRID_SPAN = 35;// Íø¸ñ¼ä¾à
-	public static final int ROWS = 18;// ÆåÅÌĞĞÊı
-	public static final int COLS = 18;// ÆåÅÌÁĞÊı
+	public static final int MARGIN = 25;// è¾¹è·
+	public static final int GRID_SPAN = 35;// ç½‘æ ¼é—´è·
+	public static final int ROWS = 18;// æ£‹ç›˜è¡Œæ•°
+	public static final int COLS = 18;// æ£‹ç›˜åˆ—æ•°
 
 	Point[] chessList = new Point[(ROWS + 1) * (COLS + 1)];
 	int chessCount;
 
-	// Éè¶¨Îå×ÓÆåÄ£Ê½
-	// 0:ÈËÈËÄ£Ê½
-	// 1:ÈË»úÄ£Ê½
-	// 2:»ú»úÄ£Ê½
+	// è®¾å®šäº”å­æ£‹æ¨¡å¼
+	// 0:äººäººæ¨¡å¼
+	// 1:äººæœºæ¨¡å¼
+	// 2:æœºæœºæ¨¡å¼
 	private int Mode = 0;
 
-	boolean isBlack = true;// Ä¬ÈÏ¿ªÊ¼ÊÇºÚÆåÏÈ
+	boolean isBlack = true;// é»˜è®¤å¼€å§‹æ˜¯é»‘æ£‹å…ˆ
 	boolean gameOver = false;
-	int xIndex, yIndex;// µ±Ç°¸ÕÏÂÆå×ÓµÄË÷Òı
+	int xIndex, yIndex;// å½“å‰åˆšä¸‹æ£‹å­çš„ç´¢å¼•
 
 	Image img;
 	// Image shadows;
@@ -64,12 +64,12 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				int x1 = (e.getX() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
-				// ½«Êó±êµã»÷µÄ×ø±êÎ»ÖÃ×ª³ÉÍø¸ñË÷Òı
+				// å°†é¼ æ ‡ç‚¹å‡»çš„åæ ‡ä½ç½®è½¬æˆç½‘æ ¼ç´¢å¼•
 				int y1 = (e.getY() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 
 				if (x1 < 0 || x1 > ROWS || y1 < 0 || y1 > COLS || gameOver || findChess(x1, y1))
 					setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-				// ÉèÖÃ³ÉÄ¬ÈÏ×´Ì¬
+				// è®¾ç½®æˆé»˜è®¤çŠ¶æ€
 				else
 					setCursor(new Cursor(Cursor.HAND_CURSOR));
 
@@ -77,13 +77,13 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		});
 	}
 
-	// ************************ ÔÚÆåÅÌÉÏ»­Æå×Ó
+	// ************************ åœ¨æ£‹ç›˜ä¸Šç”»æ£‹å­
 	public void paintChess(Graphics g) {
 		for (int i = 0; i < chessCount; i++) {
 
 			int xPos = chessList[i].getX() * GRID_SPAN + MARGIN;
 			int yPos = chessList[i].getY() * GRID_SPAN + MARGIN;
-			g.setColor(chessList[i].getColor());// ÉèÖÃÑÕÉ«
+			g.setColor(chessList[i].getColor());// è®¾ç½®é¢œè‰²
 			// g.fillOval(xPos-Point.DIAMETER/2, yPos-Point.DIAMETER/2,
 			// Point.DIAMETER, Point.DIAMETER);
 			// g.drawImage(shadows, xPos-Point.DIAMETER/2,
@@ -115,15 +115,15 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			Ellipse2D e = new Ellipse2D.Float(xPos - Point.DIAMETER / 2, yPos - Point.DIAMETER / 2, 34, 35);
 			((Graphics2D) g).fill(e);
 
-			// ×îºóÒ»¸öÆå×Ó»­ÉÏºì¾ØĞÎ¿ò
-			if (i == chessCount - 1) {// Èç¹ûÊÇ×îºóÒ»¸öÆå×Ó
+			// æœ€åä¸€ä¸ªæ£‹å­ç”»ä¸Šçº¢çŸ©å½¢æ¡†
+			if (i == chessCount - 1) {// å¦‚æœæ˜¯æœ€åä¸€ä¸ªæ£‹å­
 				g.setColor(Color.red);
 				g.drawRect(xPos - Point.DIAMETER / 2, yPos - Point.DIAMETER / 2, 34, 35);
 			}
 		}
 	}
 
-	// »æÖÆ
+	// ç»˜åˆ¶
 	@Override
 	public void paintComponent(Graphics g) {
 
@@ -137,12 +137,12 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		int y = (FHeight - imgHeight) / 2;
 		g.drawImage(img, 0, 0, FWidth, FHeight, this);
 
-		// »­ºáÏß
+		// ç”»æ¨ªçº¿
 		for (int i = 0; i <= ROWS; i++) {
 			// g.drawString(Integer.toString(i), 8, MARGIN + i * GRID_SPAN);
 			g.drawLine(MARGIN, MARGIN + i * GRID_SPAN, MARGIN + COLS * GRID_SPAN, MARGIN + i * GRID_SPAN);
 		}
-		for (int i = 0; i <= COLS; i++) {// »­ÊúÏß
+		for (int i = 0; i <= COLS; i++) {// ç”»ç«–çº¿
 			// g.drawString(Integer.toString(i), MARGIN + i * GRID_SPAN -
 			// 3,MARGIN - 8);
 			g.drawLine(MARGIN + i * GRID_SPAN, MARGIN, MARGIN + i * GRID_SPAN, MARGIN + ROWS * GRID_SPAN);
@@ -151,23 +151,23 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		paintChess(g);
 	}
 
-	// ***************** Ôö¼ÓÆå×Ó
+	// ***************** å¢åŠ æ£‹å­
 	public Point[] addChess(int x, int y) {
 
 		if (gameOver) {
-			String msg = String.format("ÓÎÏ·½áÊø£¬Ê¤¸ºÒÑ¶¨£¡");
+			String msg = String.format("æ¸¸æˆç»“æŸï¼Œèƒœè´Ÿå·²å®šï¼");
 			JOptionPane.showMessageDialog(this, msg);
 			return null;
 		}
 
-		String colorName = isBlack ? "ºÚÆå" : "°×Æå";
+		String colorName = isBlack ? "é»‘æ£‹" : "ç™½æ£‹";
 
 		if (x < 0 || x > ROWS || y < 0 || y > COLS)
 			return null;
 
-		// Èç¹ûx£¬yÎ»ÖÃÒÑ¾­ÓĞÆå×Ó´æÔÚ£¬²»ÄÜÏÂ
+		// å¦‚æœxï¼Œyä½ç½®å·²ç»æœ‰æ£‹å­å­˜åœ¨ï¼Œä¸èƒ½ä¸‹
 		if (findChess(x, y)) {
-			String msg = String.format("¸ÃÎ»ÖÃÒÑ¾­Âä×Ó£¡");
+			String msg = String.format("è¯¥ä½ç½®å·²ç»è½å­ï¼");
 			JOptionPane.showMessageDialog(this, msg);
 			return null;
 		}
@@ -177,26 +177,26 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		chessList[chessCount++] = ch;
 		xIndex = x;
 		yIndex = y;
-		// Í¨ÖªÏµÍ³ÖØĞÂ»æÖÆ
+		// é€šçŸ¥ç³»ç»Ÿé‡æ–°ç»˜åˆ¶
 		repaint();
 
 		if (isWin()) {
 			System.out.println("Win Win Win Win Win Win");
-			String msg = String.format("¹§Ï²£¬%sÓ®ÁË£¡", colorName);
+			String msg = String.format("æ­å–œï¼Œ%sèµ¢äº†ï¼", colorName);
 			JOptionPane.showMessageDialog(this, msg);
 			gameOver = true;
 		} else {
-			isBlack = !isBlack; // ºÚ°××Ó·´×ª
+			isBlack = !isBlack; // é»‘ç™½å­åè½¬
 			return chessList;
 		}
 		return null;
 
 	}
 
-	// ********************** Ôö¼ÓºÚÉ«Æå×Ó
+	// ********************** å¢åŠ é»‘è‰²æ£‹å­
 	public Point[] BlackAddChess(int x, int y) {
 		if (!isBlack) {
-			String msg = String.format("ºÚ×ÓÒÑ¾­Âä×Ó£¬ÂÖµ½°××Ó");
+			String msg = String.format("é»‘å­å·²ç»è½å­ï¼Œè½®åˆ°ç™½å­");
 			JOptionPane.showMessageDialog(this, msg);
 			return null;
 		} else
@@ -204,10 +204,10 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 
 	}
 
-	// ********************** Ôö¼Ó°×É«Æå×Ó
+	// ********************** å¢åŠ ç™½è‰²æ£‹å­
 	public Point[] WhiteAddChess(int x, int y) {
 		if (isBlack) {
-			String msg = String.format("°××ÓÒÑ¾­Âä×Ó£¬ÂÖµ½ºÚ×Ó");
+			String msg = String.format("ç™½å­å·²ç»è½å­ï¼Œè½®åˆ°é»‘å­");
 			JOptionPane.showMessageDialog(this, msg);
 			return null;
 		} else
@@ -215,69 +215,69 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {// Êó±êÔÚ×é¼şÉÏ°´ÏÂÊ±µ÷ÓÃ
+	public void mousePressed(MouseEvent e) {// é¼ æ ‡åœ¨ç»„ä»¶ä¸ŠæŒ‰ä¸‹æ—¶è°ƒç”¨
 
 		if (GetMode() == 0) {
-			// ÓÎÏ·½áÊøÊ±£¬²»ÔÙÄÜÏÂ
+			// æ¸¸æˆç»“æŸæ—¶ï¼Œä¸å†èƒ½ä¸‹
 			if (gameOver)
 				return;
 
-			String colorName = isBlack ? "ºÚÆå" : "°×Æå";
+			String colorName = isBlack ? "é»‘æ£‹" : "ç™½æ£‹";
 
-			// ½«Êó±êµã»÷µÄ×ø±êÎ»ÖÃ×ª»»³ÉÍø¸ñË÷Òı
+			// å°†é¼ æ ‡ç‚¹å‡»çš„åæ ‡ä½ç½®è½¬æ¢æˆç½‘æ ¼ç´¢å¼•
 			xIndex = (e.getX() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 			yIndex = (e.getY() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 
-			// ÂäÔÚÆåÅÌÍâ²»ÄÜÏÂ
+			// è½åœ¨æ£‹ç›˜å¤–ä¸èƒ½ä¸‹
 			if (xIndex < 0 || xIndex > ROWS || yIndex < 0 || yIndex > COLS)
 				return;
 
-			// Èç¹ûx£¬yÎ»ÖÃÒÑ¾­ÓĞÆå×Ó´æÔÚ£¬²»ÄÜÏÂ
+			// å¦‚æœxï¼Œyä½ç½®å·²ç»æœ‰æ£‹å­å­˜åœ¨ï¼Œä¸èƒ½ä¸‹
 			if (findChess(xIndex, yIndex))
 				return;
 
-			// ¿ÉÒÔ½øĞĞÊ±µÄ´¦Àí
+			// å¯ä»¥è¿›è¡Œæ—¶çš„å¤„ç†
 			Point ch = new Point(xIndex, yIndex, isBlack ? Color.black : Color.white);
 			chessList[chessCount++] = ch;
-			repaint();// Í¨ÖªÏµÍ³ÖØĞÂ»æÖÆ
+			repaint();// é€šçŸ¥ç³»ç»Ÿé‡æ–°ç»˜åˆ¶
 
-			// Èç¹ûÊ¤³öÔò¸ø³öÌáÊ¾ĞÅÏ¢£¬²»ÄÜ¼ÌĞøÏÂÆå
+			// å¦‚æœèƒœå‡ºåˆ™ç»™å‡ºæç¤ºä¿¡æ¯ï¼Œä¸èƒ½ç»§ç»­ä¸‹æ£‹
 
 			if (isWin()) {
-				String msg = String.format("¹§Ï²£¬%sÓ®ÁË£¡", colorName);
+				String msg = String.format("æ­å–œï¼Œ%sèµ¢äº†ï¼", colorName);
 				JOptionPane.showMessageDialog(this, msg);
 				gameOver = true;
 			}
 			isBlack = !isBlack;
 		}
 
-		// ÈË»úÄ£Ê½,ºÚ×Ó±íÊ¾ÈËÏÈĞĞ£¬°××Ó±íÊ¾µçÄÔ,µçÄÔÏÂÊ±£¬²»¼àÌıÊÂ¼ş
+		// äººæœºæ¨¡å¼,é»‘å­è¡¨ç¤ºäººå…ˆè¡Œï¼Œç™½å­è¡¨ç¤ºç”µè„‘,ç”µè„‘ä¸‹æ—¶ï¼Œä¸ç›‘å¬äº‹ä»¶
 		if (this.Mode == 1) {
 			if (isBlack) {
 				if (gameOver)
 					return;
 
-				// ½«Êó±êµã»÷µÄ×ø±êÎ»ÖÃ×ª»»³ÉÍø¸ñË÷Òı
+				// å°†é¼ æ ‡ç‚¹å‡»çš„åæ ‡ä½ç½®è½¬æ¢æˆç½‘æ ¼ç´¢å¼•
 				xIndex = (e.getX() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 				yIndex = (e.getY() - MARGIN + GRID_SPAN / 2) / GRID_SPAN;
 
-				// ÂäÔÚÆåÅÌÍâ²»ÄÜÏÂ
+				// è½åœ¨æ£‹ç›˜å¤–ä¸èƒ½ä¸‹
 				if (xIndex < 0 || xIndex > ROWS || yIndex < 0 || yIndex > COLS)
 					return;
 
-				// Èç¹ûx£¬yÎ»ÖÃÒÑ¾­ÓĞÆå×Ó´æÔÚ£¬²»ÄÜÏÂ
+				// å¦‚æœxï¼Œyä½ç½®å·²ç»æœ‰æ£‹å­å­˜åœ¨ï¼Œä¸èƒ½ä¸‹
 				if (findChess(xIndex, yIndex))
 					return;
 
-				// ¿ÉÒÔ½øĞĞÊ±µÄ´¦Àí
+				// å¯ä»¥è¿›è¡Œæ—¶çš„å¤„ç†
 				Point ch = new Point(xIndex, yIndex, Color.black);
 				chessList[chessCount++] = ch;
-				repaint();// Í¨ÖªÏµÍ³ÖØĞÂ»æÖÆ
+				repaint();// é€šçŸ¥ç³»ç»Ÿé‡æ–°ç»˜åˆ¶
 
-				// Èç¹ûÊ¤³öÔò¸ø³öÌáÊ¾ĞÅÏ¢£¬²»ÄÜ¼ÌĞøÏÂÆå
+				// å¦‚æœèƒœå‡ºåˆ™ç»™å‡ºæç¤ºä¿¡æ¯ï¼Œä¸èƒ½ç»§ç»­ä¸‹æ£‹
 
 				if (isWin()) {
-					String msg = String.format("¹§Ï²£¬%sÓ®ÁË£¡", "ºÚÆå");
+					String msg = String.format("æ­å–œï¼Œ%sèµ¢äº†ï¼", "é»‘æ£‹");
 					JOptionPane.showMessageDialog(this, msg);
 					gameOver = true;
 				}
@@ -291,7 +291,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			return;
 	}
 
-	// ÔÚÆå×ÓÊı×éÖĞ²éÕÒÊÇ·ñÓĞË÷ÒıÎªx£¬yµÄÆå×Ó´æÔÚ
+	// åœ¨æ£‹å­æ•°ç»„ä¸­æŸ¥æ‰¾æ˜¯å¦æœ‰ç´¢å¼•ä¸ºxï¼Œyçš„æ£‹å­å­˜åœ¨
 	private boolean findChess(int x, int y) {
 		for (Point c : chessList) {
 			if (c != null && c.getX() == x && c.getY() == y)
@@ -300,11 +300,11 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		return false;
 	}
 
-	// ******************** ¸ù¾İ¸ÕÏÂÆå×ÓµÄÎ»ÖÃ£¬ÅĞ¶ÏÆåÅÌµÄÊäÓ®£¬
+	// ******************** æ ¹æ®åˆšä¸‹æ£‹å­çš„ä½ç½®ï¼Œåˆ¤æ–­æ£‹ç›˜çš„è¾“èµ¢ï¼Œ
 	private boolean isWin() {
-		int continueCount = 1;// Á¬ĞøÆå×ÓµÄ¸öÊı
+		int continueCount = 1;// è¿ç»­æ£‹å­çš„ä¸ªæ•°
 
-		// --------------ºáÏòÑ°ÕÒ-----> ºáÏòÏòÎ÷Ñ°ÕÒ
+		// --------------æ¨ªå‘å¯»æ‰¾-----> æ¨ªå‘å‘è¥¿å¯»æ‰¾
 		for (int x = xIndex - 1; x >= 0; x--) {
 			Color c = isBlack ? Color.black : Color.white;
 			if (getChess(x, yIndex, c) != null) {
@@ -312,7 +312,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			} else
 				break;
 		}
-		// -------------ºáÏòÑ°ÕÒ------> ºáÏòÏò¶«Ñ°ÕÒ
+		// -------------æ¨ªå‘å¯»æ‰¾------> æ¨ªå‘å‘ä¸œå¯»æ‰¾
 		for (int x = xIndex + 1; x <= COLS; x++) {
 			Color c = isBlack ? Color.black : Color.white;
 			if (getChess(x, yIndex, c) != null) {
@@ -325,8 +325,8 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		} else
 			continueCount = 1;
 
-		// *****************×İÏòÑ°ÕÒ ******************
-		// ÏòÉÏËÑË÷
+		// *****************çºµå‘å¯»æ‰¾ ******************
+		// å‘ä¸Šæœç´¢
 		for (int y = yIndex - 1; y >= 0; y--) {
 			Color c = isBlack ? Color.black : Color.white;
 			if (getChess(xIndex, y, c) != null) {
@@ -334,7 +334,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			} else
 				break;
 		}
-		// ×İÏòÏòÏÂÑ°ÕÒ
+		// çºµå‘å‘ä¸‹å¯»æ‰¾
 		for (int y = yIndex + 1; y <= ROWS; y++) {
 			Color c = isBlack ? Color.black : Color.white;
 			if (getChess(xIndex, y, c) != null)
@@ -348,8 +348,8 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		else
 			continueCount = 1;
 
-		// ******************* ÓÒÉÏĞ±ÏòËÑË÷ **************************
-		// ¶«±±Ñ°ÕÒ
+		// ******************* å³ä¸Šæ–œå‘æœç´¢ **************************
+		// ä¸œåŒ—å¯»æ‰¾
 		for (int x = xIndex + 1, y = yIndex - 1; y >= 0 && x <= COLS; x++, y--) {
 			Color c = isBlack ? Color.black : Color.white;
 			if (getChess(x, y, c) != null) {
@@ -357,7 +357,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			} else
 				break;
 		}
-		// Î÷ÄÏÑ°ÕÒ
+		// è¥¿å—å¯»æ‰¾
 		for (int x = xIndex - 1, y = yIndex + 1; x >= 0 && y <= ROWS; x--, y++) {
 			Color c = isBlack ? Color.black : Color.white;
 			if (getChess(x, y, c) != null) {
@@ -370,8 +370,8 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		else
 			continueCount = 1;
 
-		// **************** ×óÉÏĞ±ÉÏËÑË÷ ****************************
-		// Î÷±±Ñ°ÕÒ
+		// **************** å·¦ä¸Šæ–œä¸Šæœç´¢ ****************************
+		// è¥¿åŒ—å¯»æ‰¾
 		for (int x = xIndex - 1, y = yIndex - 1; x >= 0 && y >= 0; x--, y--) {
 			Color c = isBlack ? Color.black : Color.white;
 			if (getChess(x, y, c) != null)
@@ -379,7 +379,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 			else
 				break;
 		}
-		// ¶«ÄÏÑ°ÕÒ
+		// ä¸œå—å¯»æ‰¾
 		for (int x = xIndex + 1, y = yIndex + 1; x <= COLS && y <= ROWS; x++, y++) {
 			Color c = isBlack ? Color.black : Color.white;
 			if (getChess(x, y, c) != null)
@@ -395,7 +395,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		return false;
 	}
 
-	// ********************* ¸ù¾İ×ø±êµÃµ½Æå×Ó
+	// ********************* æ ¹æ®åæ ‡å¾—åˆ°æ£‹å­
 	private Point getChess(int xIndex, int yIndex, Color color) {
 		for (Point p : chessList) {
 			if (p != null && p.getX() == xIndex && p.getY() == yIndex && p.getColor() == color)
@@ -404,20 +404,20 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		return null;
 	}
 
-	// ********************* ÖØĞÂ±ÈÈü
+	// ********************* é‡æ–°æ¯”èµ›
 	public void restartGame() {
-		// Çå³ıÆå×Ó
+		// æ¸…é™¤æ£‹å­
 		for (int i = 0; i < chessList.length; i++) {
 			chessList[i] = null;
 		}
-		// »Ö¸´ÓÎÏ·Ïà¹ØµÄ±äÁ¿Öµ
+		// æ¢å¤æ¸¸æˆç›¸å…³çš„å˜é‡å€¼
 		isBlack = true;
-		gameOver = false; // ÓÎÏ·ÊÇ·ñ½áÊø
-		chessCount = 0; // µ±Ç°ÆåÅÌÆå×Ó¸öÊı
+		gameOver = false; // æ¸¸æˆæ˜¯å¦ç»“æŸ
+		chessCount = 0; // å½“å‰æ£‹ç›˜æ£‹å­ä¸ªæ•°
 		repaint();
 	}
 
-	// ****************** »ÚÆå
+	// ****************** æ‚”æ£‹
 	public void goback() {
 		if (chessCount == 0)
 			return;
@@ -431,7 +431,7 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		repaint();
 	}
 
-	// ********************* Æå×ÓÍâÈ¦¾ØĞÎDimension
+	// ********************* æ£‹å­å¤–åœˆçŸ©å½¢Dimension
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(MARGIN * 2 + GRID_SPAN * COLS, MARGIN * 2 + GRID_SPAN * ROWS);
@@ -450,36 +450,36 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		restartGame();
 	}
 
-	// ¸²¸ÇmouseListenerµÄ·½·¨
+	// è¦†ç›–mouseListenerçš„æ–¹æ³•
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// Êó±ê°´¼üÔÚ×é¼şÉÏµ¥»÷Ê±µ÷ÓÃ
+		// é¼ æ ‡æŒ‰é”®åœ¨ç»„ä»¶ä¸Šå•å‡»æ—¶è°ƒç”¨
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// Êó±ê½øÈëµ½×é¼şÉÏÊ±µ÷ÓÃ
+		// é¼ æ ‡è¿›å…¥åˆ°ç»„ä»¶ä¸Šæ—¶è°ƒç”¨
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// Êó±êÀë¿ª×é¼şÊ±µ÷ÓÃ
+		// é¼ æ ‡ç¦»å¼€ç»„ä»¶æ—¶è°ƒç”¨
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// Êó±ê°´Å¥ÔÚ×é¼şÉÏÊÍ·ÅÊ±µ÷ÓÃ
+		// é¼ æ ‡æŒ‰é’®åœ¨ç»„ä»¶ä¸Šé‡Šæ”¾æ—¶è°ƒç”¨
 	}
 
-	// µ±Ä£Ê½ÎªÈË»úºÍµçÄÔÖ®¼ä¶ÔŞÄÊ±£¬ĞèÒª¿ªÆôĞÂµÄÏß³Ì
+	// å½“æ¨¡å¼ä¸ºäººæœºå’Œç”µè„‘ä¹‹é—´å¯¹å¼ˆæ—¶ï¼Œéœ€è¦å¼€å¯æ–°çš„çº¿ç¨‹
 	@Override
 	public void run() {
-		// »ú»úÄ£Ê½
+		// æœºæœºæ¨¡å¼
 		if (this.Mode == 2) {
 			ChessStrategy chessStrategy = new ChessStrategy();
 			chessStrategy.computerVscomputer(this);
 		}
-		// ÈË»úÄ£Ê½
+		// äººæœºæ¨¡å¼
 		if (this.Mode == 1) {
 			ChessStrategy chessStrategy = new ChessStrategy();
 			Point t;
