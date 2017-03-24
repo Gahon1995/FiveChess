@@ -1,9 +1,9 @@
 # 五子棋 
 
 
-Author: Gahon
+Author: [Gahon](https://github.com/Gahon1995)
 
-注：此项目来自网络，为了方便保存，所以上传至此（原作者：WangHao）
+注：此项目来自网络，为了方便保存，所以上传至此（原作者：[WangHao](https://github.com/wanghao2020/FiveChess)）
 
 配置环境： JDk1.8
 
