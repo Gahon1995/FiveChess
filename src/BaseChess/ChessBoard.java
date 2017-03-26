@@ -471,6 +471,11 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		// 鼠标按钮在组件上释放时调用
 	}
 
+	
+	public boolean isGameOver(){
+		return this.gameOver;
+	}
+	
 	// 当模式为人机和电脑之间对弈时，需要开启新的线程
 	@Override
 	public void run() {
@@ -483,9 +488,15 @@ public class ChessBoard extends JPanel implements MouseListener, Runnable {
 		if (this.Mode == 1) {
 			ChessStrategy chessStrategy = new ChessStrategy();
 			Point t;
+			boolean flag =true;
 			while (!this.gameOver && this.Mode == 1) {
-				System.out.println("5");
+				//System.out.println("  ");
+				if(flag){
+					System.out.println("I'm in");
+				}
+				
 				if (!this.isBlack) {
+					flag=false;
 					t = chessStrategy.WhiteNextStep(this.getChesslist());
 					WhiteAddChess(t.getX(), t.getY());
 				}

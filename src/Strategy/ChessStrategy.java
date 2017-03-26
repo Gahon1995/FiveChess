@@ -263,6 +263,7 @@ public class ChessStrategy {
 
 	// 当前位置是否有节点
 	public boolean IsHasChess(int xIndex, int yIndex, Point[] chesslist) {
+		
 
 		for (Point p : chesslist) {
 			if (p != null && xIndex == p.getX() && yIndex == p.getY())
@@ -372,7 +373,7 @@ public class ChessStrategy {
 	// 电脑VS电脑
 	public void computerVscomputer(ChessBoard chessboard) {
 		boolean flag = true;
-		while (true && chessboard.GetMode() == 2) {
+		while (true && chessboard.GetMode() == 2 && !chessboard.isGameOver()) {
 
 			// 黑子落
 			Point NextStep;
